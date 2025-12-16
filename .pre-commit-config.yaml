@@ -25,14 +25,13 @@ repos:
     rev: v0.9.3
   - hooks:
       - args:
-          - --coverage
           - --github--push--tag
           - --pre-commit--prettier
           - --pre-commit--ruff
           - --pre-commit--taplo
           - --pre-commit--uv
           - --pyproject
-          - --pyproject--project--name=template
+          - --pyproject--project--name=dycw-setup-cronjob
           - --pyright
           - --pyright--include=src
           - --pytest

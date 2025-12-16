@@ -3,9 +3,6 @@
     "-ra",
     "-vv",
     "--color=auto",
-    "--cov=template",
-    "--cov-config=.coveragerc.toml",
-    "--cov-report=html",
     "--durations=10",
     "--durations-min=10",
   ]
