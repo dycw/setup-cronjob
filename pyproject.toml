@@ -12,3 +12,9 @@
   readme = "README.md"
   requires-python = ">= 3.14"
   version = "0.1.0"
+
+[tool]
+  [tool.uv]
+    [tool.uv.build-backend]
+      module-name = "make-crontab"
+      module-root = "src"
