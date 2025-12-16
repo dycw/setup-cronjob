@@ -3,7 +3,7 @@
   requires = ["uv_build"]
 
 [dependency-groups]
-  dev = ["dycw-utilities[test]", "pyright[nodejs]", "rich"]
+  dev = ["dycw-utilities[test]", "pyright", "rich"]
 
 [project]
   authors = [{ email = "d.wan@icloud.com", name = "Derek Wan" }]
