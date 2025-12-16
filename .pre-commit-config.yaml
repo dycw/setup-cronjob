@@ -26,6 +26,7 @@ repos:
   - hooks:
       - args:
           - --github--push--tag
+          - --github--push--publish
           - --pre-commit--prettier
           - --pre-commit--ruff
           - --pre-commit--taplo
@@ -39,7 +40,7 @@ repos:
           - --ruff
         id: nitpick
     repo: https://github.com/dycw/pre-commit-hook-nitpick
-    rev: 0.3.2
+    rev: 0.3.3
   - hooks:
       - id: format-requirements
       - id: replace-sequence-str
