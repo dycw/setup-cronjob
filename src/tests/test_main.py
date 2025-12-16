@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from template import __version__
+from make_crontab import __version__
 
 
 class TestMain:
