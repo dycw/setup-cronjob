@@ -25,7 +25,6 @@ repos:
     rev: v0.9.3
   - hooks:
       - args:
-          - --coverage
           - --github--push--tag
           - --pre-commit--prettier
           - --pre-commit--ruff
