@@ -8,7 +8,7 @@
 [project]
   authors = [{ email = "d.wan@icloud.com", name = "Derek Wan" }]
   dependencies = []
-  name = "template"
+  name = "dycw-make-crontab"
   readme = "README.md"
   requires-python = ">= 3.14"
   version = "0.1.0"

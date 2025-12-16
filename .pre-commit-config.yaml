@@ -32,7 +32,7 @@ repos:
           - --pre-commit--taplo
           - --pre-commit--uv
           - --pyproject
-          - --pyproject--project--name=template
+          - --pyproject--project--name=dycw-make-crontab
           - --pyright
           - --pyright--include=src
           - --pytest

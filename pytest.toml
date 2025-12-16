@@ -8,6 +8,7 @@
     "--cov-report=html",
     "--durations=10",
     "--durations-min=10",
+    "--cov=dycw_make_crontab",
   ]
   collect_imported_tests = false
   empty_parameter_set_mark = "fail_at_collect"
