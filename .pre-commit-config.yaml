@@ -32,7 +32,7 @@ repos:
           - --pre-commit--taplo
           - --pre-commit--uv
           - --pyproject
-          - --pyproject--project--name=dycw-make-crontab
+          - --pyproject--project--name=dycw-setup-cronjob
           - --pyright
           - --pyright--include=src
           - --pytest

@@ -7,14 +7,21 @@
 
 [project]
   authors = [{ email = "d.wan@icloud.com", name = "Derek Wan" }]
-  dependencies = []
-  name = "dycw-make-crontab"
+  dependencies = [
+    "click >=8.3.1, <8.4",
+    "dycw-utilities >=0.169.9",
+    "typed-settings >=25.3.0, <25.4",
+  ]
+  name = "dycw-setup-cronjob"
   readme = "README.md"
   requires-python = ">= 3.14"
   version = "0.1.1"
 
+  [project.scripts]
+    setup-cronjob = "setup_cronjob.cli:_main"
+
 [tool]
   [tool.uv]
     [tool.uv.build-backend]
-      module-name = "make-crontab"
+      module-name = "setup_cronjob"
       module-root = "src"
