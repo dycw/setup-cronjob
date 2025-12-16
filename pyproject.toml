@@ -12,6 +12,7 @@
     "dycw-utilities >=0.169.9",
     "typed-settings >=25.3.0, <25.4",
   ]
+  description = "Library to set up cron jobs"
   name = "dycw-setup-cronjob"
   readme = "README.md"
   requires-python = ">= 3.14"
