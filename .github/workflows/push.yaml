@@ -1,25 +1,11 @@
-name: push
-
-"on":
-  push:
-    branches:
-      - master
-
 jobs:
-  tag:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Tag latest commit
-        uses: dycw/action-tag-commit@latest
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
   publish:
     environment:
       name: pypi
     needs:
       - tag
     permissions:
+      id-token: write
       id-write: write
     runs-on: ubuntu-latest
     steps:
@@ -33,3 +19,15 @@ jobs:
         run: uv build
       - name: Upload distribution
         run: uv publish --trusted-publishing always
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tag latest commit
+        uses: dycw/action-tag-commit@latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+name: push
+"on":
+  push:
+    branches:
+      - master
