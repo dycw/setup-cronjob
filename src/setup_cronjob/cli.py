@@ -1,24 +1,22 @@
 from __future__ import annotations
 
-from logging import getLogger
-
 from click import command
 from rich.pretty import pretty_repr
 from typed_settings import click_options
 from utilities.click import CONTEXT_SETTINGS_HELP_OPTION_NAMES
+from utilities.logging import basic_config
 
 from setup_cronjob.lib import setup_cronjob
+from setup_cronjob.logging import LOGGER
 from setup_cronjob.settings import Settings
-
-_LOGGER = getLogger(__name__)
 
 
 @command(**CONTEXT_SETTINGS_HELP_OPTION_NAMES)
 @click_options(Settings, "app", show_envvars_in_help=True)
 def _main(settings: Settings, /) -> None:
-    _LOGGER.info("Settings = %s", pretty_repr(settings))
+    LOGGER.info("Settings = %s", pretty_repr(settings))
     if settings.dry_run:
-        _LOGGER.info("Dry-run; exiting...")
+        LOGGER.info("Dry-run; exiting...")
         return
     setup_cronjob(
         name=settings.name,
@@ -33,4 +31,5 @@ def _main(settings: Settings, /) -> None:
 
 
 if __name__ == "__main__":
+    basic_config(obj=LOGGER)
     _main()
