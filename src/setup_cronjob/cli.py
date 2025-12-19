@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from click import command
 from rich.pretty import pretty_repr
-from typed_settings import click_options
-from utilities.click import CONTEXT_SETTINGS_HELP_OPTION_NAMES
+from typed_settings import EnvLoader, click_options
+from utilities.click import CONTEXT_SETTINGS
 from utilities.logging import basic_config
 
 from setup_cronjob.lib import setup_cronjob
@@ -11,8 +11,8 @@ from setup_cronjob.logging import LOGGER
 from setup_cronjob.settings import Settings
 
 
-@command(**CONTEXT_SETTINGS_HELP_OPTION_NAMES)
-@click_options(Settings, "app", show_envvars_in_help=True)
+@command(**CONTEXT_SETTINGS)
+@click_options(Settings, [EnvLoader("")], show_envvars_in_help=True)
 def _main(settings: Settings, /) -> None:
     LOGGER.info("Settings = %s", pretty_repr(settings))
     if settings.dry_run:
