@@ -55,6 +55,7 @@ def setup_cronjob(
 
 def _get_crontab(
     *,
+    prepend_path: list[str] = SETTINGS.prepend_path,
     schedule: str = SETTINGS.schedule,
     user: str = SETTINGS.user,
     name: str = SETTINGS.name,
@@ -64,6 +65,7 @@ def _get_crontab(
     script_args: list[str] = SETTINGS.script_args,
 ) -> str:
     return Template((_PACKAGE_ROOT / "cron.tmpl").read_text()).substitute(
+        PREPEND_PATH="".join(f"{p}:" for p in prepend_path),
         SCHEDULE=schedule,
         USER=user,
         NAME=name,
