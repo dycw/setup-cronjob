@@ -24,6 +24,7 @@ _PACKAGE_ROOT = cast("Path", files("setup_cronjob"))
 def setup_cronjob(
     *,
     name: str = SETTINGS.name,
+    prepend_path: list[str] = SETTINGS.prepend_path,
     schedule: str = SETTINGS.schedule,
     user: str = SETTINGS.user,
     timeout: int = SETTINGS.timeout,
@@ -39,6 +40,7 @@ def setup_cronjob(
     _write_file(
         f"/etc/cron.d/{name}",
         _get_crontab(
+            prepend_path=prepend_path,
             schedule=schedule,
             user=user,
             name=name,
@@ -55,6 +57,7 @@ def setup_cronjob(
 
 def _get_crontab(
     *,
+    prepend_path: list[str] = SETTINGS.prepend_path,
     schedule: str = SETTINGS.schedule,
     user: str = SETTINGS.user,
     name: str = SETTINGS.name,
@@ -64,6 +67,7 @@ def _get_crontab(
     script_args: list[str] = SETTINGS.script_args,
 ) -> str:
     return Template((_PACKAGE_ROOT / "cron.tmpl").read_text()).substitute(
+        PREPEND_PATH="".join(f"{p}:" for p in prepend_path),
         SCHEDULE=schedule,
         USER=user,
         NAME=name,

@@ -20,6 +20,7 @@ def _main(settings: Settings, /) -> None:
         return
     setup_cronjob(
         name=settings.name,
+        prepend_path=settings.prepend_path,
         schedule=settings.schedule,
         user=settings.user,
         timeout=settings.timeout,

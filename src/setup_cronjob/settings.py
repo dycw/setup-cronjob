@@ -8,6 +8,7 @@ from typed_settings import option, settings
 @settings
 class Settings:
     name: str = option(default="name", help="Cron job name")
+    prepend_path: list[str] = option(factory=list, help="Paths to prepend")
     schedule: str = option(default="* * * * *", help="Cron job schedule")
     user: str = option(default="nonroot", help="Cron job user")
     timeout: int = option(default=60, help="Seconds until timing-out the cron job")
