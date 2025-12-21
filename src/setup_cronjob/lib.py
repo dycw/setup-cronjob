@@ -1,15 +1,15 @@
 from __future__ import annotations
 
 from importlib.resources import files
-from logging import getLogger
 from pathlib import Path
 from string import Template
-from subprocess import check_call
 from typing import TYPE_CHECKING, cast
 
 from utilities.platform import SYSTEM
+from utilities.subprocess import run
 from utilities.tempfile import TemporaryFile
 
+from setup_cronjob.logging import LOGGER
 from setup_cronjob.settings import SETTINGS
 
 if TYPE_CHECKING:
@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
     from utilities.types import PathLike
 
-_LOGGER = getLogger(__name__)
+
 _PACKAGE_ROOT = cast("Path", files("setup_cronjob"))
 
 
@@ -89,9 +89,9 @@ def _get_logrotate(
 
 
 def _write_file(path: PathLike, text: str, /) -> None:
-    _LOGGER.info("Writing '%s'...", path)
+    LOGGER.info("Writing '%s'...", path)
     with TemporaryFile() as src:
         _ = src.write_text(text)
-        _ = check_call(["sudo", "mv", str(src), str(path)])
-    _ = check_call(["sudo", "chown", "root:root", str(path)])
-    _ = check_call(["sudo", "chmod", "u=rw,g=r,o=r", str(path)])
+        run("sudo", "mv", str(src), str(path))
+    run("sudo", "chown", "root:root", str(path))
+    run("sudo", "chmod", "u=rw,g=r,o=r", str(path))
