@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from typed_settings import option, settings
+from typed_settings import EnvLoader, load_settings, option, settings
 
 
 @settings
@@ -21,7 +21,7 @@ class Settings:
     dry_run: bool = option(default=False, help="Dry-run the CLI")
 
 
-SETTINGS = Settings()
+SETTINGS = load_settings(Settings, [EnvLoader("")])
 
 
 __all__ = ["SETTINGS", "Settings"]
