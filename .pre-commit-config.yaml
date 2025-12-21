@@ -26,20 +26,19 @@ repos:
   - hooks:
       - args:
           - --description=Library to set up cron jobs
-          - --github--push--tag
           - --github--push--publish
+          - --github--push--tag
+          - --package-name=dycw-setup-cronjob
           - --pre-commit--prettier
           - --pre-commit--ruff
           - --pre-commit--taplo
           - --pre-commit--uv
           - --pyproject
-          - --package-name=dycw-setup-cronjob
-          - --python-package-name=setup_cronjob
           - --pyright
           - --pyright--include=src
-          - --repo-name=setup-cronjob
           - --pytest
           - --pytest--test-paths=src/tests
+          - --python-package-name=setup_cronjob
           - --readme
           - --repo-name=setup-cronjob
           - --ruff
