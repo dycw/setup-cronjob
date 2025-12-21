@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from typed_settings import EnvLoader, load_settings, option, settings
+from utilities.getpass import USER
 
 
 @settings
@@ -10,7 +11,7 @@ class Settings:
     name: str = option(default="name", help="Cron job name")
     prepend_path: list[str] = option(factory=list, help="Paths to prepend")
     schedule: str = option(default="* * * * *", help="Cron job schedule")
-    user: str = option(default="nonroot", help="Cron job user")
+    user: str = option(default=USER, help="Cron job user")
     timeout: int = option(default=60, help="Seconds until timing-out the cron job")
     kill_after: int = option(
         default=10, help="Seconds until killing the cron job (after timeout)"
