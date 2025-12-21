@@ -41,6 +41,7 @@ repos:
           - --pytest
           - --pytest--test-paths=src/tests
           - --readme
+          - --repo-name=setup-cronjob
           - --ruff
         id: nitpick
     repo: https://github.com/dycw/pre-commit-hook-nitpick
