@@ -30,7 +30,7 @@ def setup_cronjob(
     user: str = SETTINGS.user,
     timeout: int = SETTINGS.timeout,
     kill_after: int = SETTINGS.kill_after,
-    command: str = SETTINGS.command,
+    command: PathLike = SETTINGS.command,
     args: list[str] | None = SETTINGS.args,
     logs_keep: int = SETTINGS.logs_keep,
 ) -> None:
@@ -64,7 +64,7 @@ def _get_crontab(
     name: str = SETTINGS.name,
     timeout: int = SETTINGS.timeout,
     kill_after: int = SETTINGS.kill_after,
-    command: str | None = SETTINGS.command,
+    command: PathLike | None = SETTINGS.command,
     args: list[str] | None = SETTINGS.args,
 ) -> str:
     return Template((_PACKAGE_ROOT / "cron.tmpl").read_text()).substitute(
@@ -97,3 +97,6 @@ def _write_file(path: PathLike, text: str, /) -> None:
         run("sudo", "mv", str(src), str(path))
     run("sudo", "chown", "root:root", str(path))
     run("sudo", "chmod", "u=rw,g=r,o=r", str(path))
+
+
+__all__ = ["setup_cronjob"]

@@ -68,13 +68,12 @@ PATH=/usr/local/bin:/usr/bin:/bin
 """
         assert result == expected
 
-    def test_path_script(self, *, tmp_path: Path) -> None:
-        path = tmp_path / "script.py"
-        result = _get_crontab(command=path)
+    def test_command(self) -> None:
+        result = _get_crontab(command="other-cmd")
         expected = f"""\
 PATH=/usr/local/bin:/usr/bin:/bin
 
-* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s {path}; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
+* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s other-cmd; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
 """
         assert result == expected
 
