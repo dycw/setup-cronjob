@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 from typed_settings import EnvLoader, load_settings, option, settings
 from utilities.getpass import USER
 
@@ -9,15 +7,15 @@ from utilities.getpass import USER
 @settings
 class Settings:
     name: str = option(default="name", help="Cron job name")
-    prepend_path: list[str] = option(factory=list, help="Paths to prepend")
+    prepend_path: list[str] | None = option(default=None, help="Paths to prepend")
     schedule: str = option(default="* * * * *", help="Cron job schedule")
     user: str = option(default=USER, help="Cron job user")
     timeout: int = option(default=60, help="Seconds until timing-out the cron job")
     kill_after: int = option(
         default=10, help="Seconds until killing the cron job (after timeout)"
     )
-    path_script: Path = option(default=Path("script.py"), help="Path to the script")
-    script_args: list[str] = option(factory=list, help="Script arguments")
+    command: str = option(default="command", help="Command or executable script")
+    args: list[str] | None = option(default=None, help="Command arguments")
     logs_keep: int = option(default=7, help="Number of logs to keep")
     dry_run: bool = option(default=False, help="Dry-run the CLI")
 

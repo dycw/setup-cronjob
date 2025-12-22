@@ -70,7 +70,7 @@ PATH=/usr/local/bin:/usr/bin:/bin
 
     def test_path_script(self, *, tmp_path: Path) -> None:
         path = tmp_path / "script.py"
-        result = _get_crontab(path_script=path)
+        result = _get_crontab(command=path)
         expected = f"""\
 PATH=/usr/local/bin:/usr/bin:/bin
 
@@ -79,7 +79,7 @@ PATH=/usr/local/bin:/usr/bin:/bin
         assert result == expected
 
     def test_script_args(self) -> None:
-        result = _get_crontab(script_args=["--dry-run"])
+        result = _get_crontab(args=["--dry-run"])
         path = Path("script.py").resolve()
         expected = f"""\
 PATH=/usr/local/bin:/usr/bin:/bin
