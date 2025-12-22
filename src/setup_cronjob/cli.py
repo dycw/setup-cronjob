@@ -25,8 +25,8 @@ def _main(settings: Settings, /) -> None:
         user=settings.user,
         timeout=settings.timeout,
         kill_after=settings.kill_after,
-        path_script=settings.path_script,
-        script_args=settings.script_args,
+        command=settings.command,
+        args=settings.args,
         logs_keep=settings.logs_keep,
     )
 

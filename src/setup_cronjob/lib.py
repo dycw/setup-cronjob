@@ -25,13 +25,13 @@ _PACKAGE_ROOT = cast("Path", files("setup_cronjob"))
 def setup_cronjob(
     *,
     name: str = SETTINGS.name,
-    prepend_path: Sequence[PathLike] = SETTINGS.prepend_path,
+    prepend_path: Sequence[PathLike] | None = SETTINGS.prepend_path,
     schedule: str = SETTINGS.schedule,
     user: str = SETTINGS.user,
     timeout: int = SETTINGS.timeout,
     kill_after: int = SETTINGS.kill_after,
-    path_script: Path = SETTINGS.path_script,
-    script_args: list[str] = SETTINGS.script_args,
+    command: PathLike = SETTINGS.command,
+    args: list[str] | None = SETTINGS.args,
     logs_keep: int = SETTINGS.logs_keep,
 ) -> None:
     """Set up a cronjob & logrotate."""
@@ -47,8 +47,8 @@ def setup_cronjob(
             name=name,
             timeout=timeout,
             kill_after=kill_after,
-            path_script=path_script,
-            script_args=script_args,
+            command=command,
+            args=args,
         ),
     )
     _write_file(
@@ -58,25 +58,27 @@ def setup_cronjob(
 
 def _get_crontab(
     *,
-    prepend_path: Sequence[PathLike] = SETTINGS.prepend_path,
+    prepend_path: Sequence[PathLike] | None = SETTINGS.prepend_path,
     schedule: str = SETTINGS.schedule,
     user: str = SETTINGS.user,
     name: str = SETTINGS.name,
     timeout: int = SETTINGS.timeout,
     kill_after: int = SETTINGS.kill_after,
-    path_script: Path = SETTINGS.path_script,
-    script_args: list[str] = SETTINGS.script_args,
+    command: PathLike | None = SETTINGS.command,
+    args: list[str] | None = SETTINGS.args,
 ) -> str:
     return Template((_PACKAGE_ROOT / "cron.tmpl").read_text()).substitute(
-        PREPEND_PATH="".join(f"{p}:" for p in prepend_path),
+        PREPEND_PATH=""
+        if prepend_path is None
+        else "".join(f"{p}:" for p in prepend_path),
         SCHEDULE=schedule,
         USER=user,
         NAME=name,
         TIMEOUT=timeout,
         KILL_AFTER=kill_after,
-        PATH_SCRIPT=path_script,
-        SPACE=" " if len(script_args) >= 1 else "",
-        SCRIPT_ARGS=" ".join(script_args),
+        COMMAND=command,
+        SPACE=" " if (args is not None) and (len(args) >= 1) else "",
+        ARGS="" if args is None else " ".join(args),
     )
 
 
@@ -95,3 +97,6 @@ def _write_file(path: PathLike, text: str, /) -> None:
         run("sudo", "mv", str(src), str(path))
     run("sudo", "chown", "root:root", str(path))
     run("sudo", "chmod", "u=rw,g=r,o=r", str(path))
+
+
+__all__ = ["setup_cronjob"]
