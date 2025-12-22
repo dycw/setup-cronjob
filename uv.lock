@@ -120,12 +120,12 @@ wheels = [
 
 [[package]]
 name = "dycw-setup-cronjob"
-version = "0.2.8"
+version = "0.2.9"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
     { name = "dycw-utilities" },
-    { name = "typed-settings" },
+    { name = "typed-settings", extra = ["attrs", "click"] },
 ]
 
 [package.dev-dependencies]
@@ -139,7 +139,7 @@ dev = [
 requires-dist = [
     { name = "click", specifier = ">=8.3.1,<9" },
     { name = "dycw-utilities", specifier = ">=0.172.3,<1" },
-    { name = "typed-settings", specifier = ">=25.3.0,<26" },
+    { name = "typed-settings", extras = ["attrs", "click"], specifier = ">=25.3.0,<26" },
 ]
 
 [package.metadata.requires-dev]
@@ -151,7 +151,7 @@ dev = [
 
 [[package]]
 name = "dycw-utilities"
-version = "0.172.3"
+version = "0.172.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "atomicwrites" },
@@ -159,9 +159,9 @@ dependencies = [
     { name = "tzlocal" },
     { name = "whenever" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b2/6c/2031aa978cc38f8ee0737b43c5749ea12d4c6614a0ccb08f50b28ba899f4/dycw_utilities-0.172.3.tar.gz", hash = "sha256:2445a8b1ab0b2b4559b495d36b8fb2d5d6c19fd44f025295f6474d2db4caa2b1", size = 162818, upload-time = "2025-12-21T23:49:43.527Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f5/2a/661e344447d287091758f4d1cd37f0d0c9e3cea7c772c3c58fc5efc69b25/dycw_utilities-0.172.5.tar.gz", hash = "sha256:792df14d9066e094424db260f899f950b22a4e2283423c9c1f11260b006c80b5", size = 162818, upload-time = "2025-12-22T01:46:04.825Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/45/76/add7beb7e1ac34b4fcb668f8e6463d735df036309fe68485c2967ecc25f0/dycw_utilities-0.172.3-py3-none-any.whl", hash = "sha256:076a86896d1898f3659c711e9cf23d5fa3a11be1ca9b25246419cd4119f84f6b", size = 196909, upload-time = "2025-12-21T23:49:45.364Z" },
+    { url = "https://files.pythonhosted.org/packages/a7/98/401e61e9dab2530dbe44e638ee59b4a15b553d0496b0fc45f40e09bef872/dycw_utilities-0.172.5-py3-none-any.whl", hash = "sha256:77e4dec4a1a278e119799ad320d803eda2c8e039fcd499fc471097e6766303c4", size = 196912, upload-time = "2025-12-22T01:46:06.536Z" },
 ]
 
 [package.optional-dependencies]
@@ -789,6 +789,14 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/30/19/a8155d9f411ed7cb4a5f510a6c37ac09ea6065542c597c23d0a88ec2fbed/typed_settings-25.3.0.tar.gz", hash = "sha256:865eb52c3184f467705645a1e58db9d719e08b9d7957448a2ad8cbbc22ed21a6", size = 3492969, upload-time = "2025-11-29T22:10:25.768Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8b/9e/d01ef2bed8e995bbdeeb5307a571729a10545de4a6f8f06d9175fc7a1978/typed_settings-25.3.0-py3-none-any.whl", hash = "sha256:8fe578c84ae2e44f6e8bdde256d2449fbff45f47dca3c4092aeee03900efc12c", size = 63962, upload-time = "2025-11-29T22:10:23.77Z" },
+]
+
+[package.optional-dependencies]
+attrs = [
+    { name = "attrs" },
+]
+click = [
+    { name = "click" },
 ]
 
 [[package]]
