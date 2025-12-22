@@ -10,13 +10,13 @@
   dependencies = [
     "click >=8.3.1, <9",
     "dycw-utilities >=0.172.3, <1",
-    "typed-settings >=25.3.0, <26",
+    "typed-settings[attrs,click] >=25.3.0, <26",
   ]
   description = "Library to set up cron jobs"
   name = "dycw-setup-cronjob"
   readme = "README.md"
   requires-python = ">= 3.14"
-  version = "0.2.8"
+  version = "0.2.9"
 
   [project.scripts]
     setup-cronjob = "setup_cronjob.cli:_main"
