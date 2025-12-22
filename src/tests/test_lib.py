@@ -69,7 +69,7 @@ PATH=/usr/local/bin:/usr/bin:/bin
 """
         assert result == expected
 
-    def test_script_args(self) -> None:
+    def test_args(self) -> None:
         result = _get_crontab(args=["--dry-run"])
         expected = f"""\
 PATH=/usr/local/bin:/usr/bin:/bin
