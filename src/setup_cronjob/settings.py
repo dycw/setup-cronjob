@@ -14,7 +14,7 @@ class Settings:
     kill_after: int = option(
         default=10, help="Seconds until killing the cron job (after timeout)"
     )
-    command: str = option(default="command", help="Command or executable script")
+    command: str = option(default="true", help="Command or executable script")
     args: list[str] | None = option(default=None, help="Command arguments")
     logs_keep: int = option(default=7, help="Number of logs to keep")
     dry_run: bool = option(default=False, help="Dry-run the CLI")

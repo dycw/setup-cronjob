@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 from utilities.getpass import USER
 
 from setup_cronjob.lib import _get_crontab
@@ -10,61 +8,55 @@ from setup_cronjob.lib import _get_crontab
 class TestGetCronTab:
     def test_main(self) -> None:
         result = _get_crontab()
-        path = Path("script.py").resolve()
         expected = f"""\
 PATH=/usr/local/bin:/usr/bin:/bin
 
-* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s {path}; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
+* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s true; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
 """
         assert result == expected
 
     def test_prepend_path(self) -> None:
         result = _get_crontab(prepend_path=["/foo/bin"])
-        path = Path("script.py").resolve()
         expected = f"""\
 PATH=/foo/bin:/usr/local/bin:/usr/bin:/bin
 
-* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s {path}; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
+* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s true; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
 """
         assert result == expected
 
     def test_schedule(self) -> None:
         result = _get_crontab(schedule="*/5 * * * *")
-        path = Path("script.py").resolve()
         expected = f"""\
 PATH=/usr/local/bin:/usr/bin:/bin
 
-*/5 * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s {path}; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
+*/5 * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s true; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
 """
         assert result == expected
 
     def test_user(self) -> None:
         result = _get_crontab(user="user")
-        path = Path("script.py").resolve()
-        expected = f"""\
+        expected = """\
 PATH=/usr/local/bin:/usr/bin:/bin
 
-* * * * * user (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s {path}; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
+* * * * * user (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s true; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
 """
         assert result == expected
 
     def test_timeout(self) -> None:
         result = _get_crontab(timeout=120)
-        path = Path("script.py").resolve()
         expected = f"""\
 PATH=/usr/local/bin:/usr/bin:/bin
 
-* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 120s {path}; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
+* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 120s true; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
 """
         assert result == expected
 
     def test_kill_after(self) -> None:
         result = _get_crontab(kill_after=20)
-        path = Path("script.py").resolve()
         expected = f"""\
 PATH=/usr/local/bin:/usr/bin:/bin
 
-* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=20s --verbose 60s {path}; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
+* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=20s --verbose 60s true; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
 """
         assert result == expected
 
@@ -79,10 +71,9 @@ PATH=/usr/local/bin:/usr/bin:/bin
 
     def test_script_args(self) -> None:
         result = _get_crontab(args=["--dry-run"])
-        path = Path("script.py").resolve()
         expected = f"""\
 PATH=/usr/local/bin:/usr/bin:/bin
 
-* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s {path} --dry-run; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
+* * * * * {USER} (echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Starting 'name'..."; flock --nonblock --verbose /tmp/cron-name.lock timeout --kill-after=10s --verbose 60s command --dry-run; echo "[$(date '+\\%Y-\\%m-\\%d \\%H:\\%M:\\%S') | $$] Finished 'name' with exit code $?") 2>&1 | sudo tee -a /var/log/name.log
 """
         assert result == expected
