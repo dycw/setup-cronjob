@@ -20,7 +20,7 @@ jobs:
           - "3.14"
         resolution:
           - highest
-          - lowest_direct
+          - lowest-direct
 name: pull-request
 "on":
   pull_request:
