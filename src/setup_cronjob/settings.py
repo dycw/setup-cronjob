@@ -3,6 +3,8 @@ from __future__ import annotations
 from typed_settings import EnvLoader, load_settings, option, settings
 from utilities.getpass import USER
 
+LOADER = EnvLoader("")
+
 
 @settings
 class Settings:
@@ -17,10 +19,9 @@ class Settings:
     command: str = option(default="true", help="Command or executable script")
     args: list[str] | None = option(default=None, help="Command arguments")
     logs_keep: int = option(default=7, help="Number of logs to keep")
-    dry_run: bool = option(default=False, help="Dry-run the CLI")
 
 
-SETTINGS = load_settings(Settings, [EnvLoader("")])
+SETTINGS = load_settings(Settings, [LOADER])
 
 
-__all__ = ["SETTINGS", "Settings"]
+__all__ = ["LOADER", "SETTINGS", "Settings"]
