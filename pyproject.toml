@@ -16,7 +16,7 @@
   name = "dycw-setup-cronjob"
   readme = "README.md"
   requires-python = ">= 3.14"
-  version = "0.3.1"
+  version = "0.3.2"
 
   [project.scripts]
     setup-cronjob = "setup_cronjob.cli:_main"
