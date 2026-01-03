@@ -25,6 +25,7 @@ repos:
           - --pyright
           - --pytest
           - --python-package-name=setup_cronjob
+          - --python-version=3.12
           - --readme
           - --repo-name=setup-cronjob
           - --ruff

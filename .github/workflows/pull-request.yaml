@@ -23,7 +23,7 @@ jobs:
       - name: Run 'pyright'
         uses: dycw/action-pyright@latest
         with:
-          python-version: "3.14"
+          python-version: "3.12"
           token-checkout: ${{secrets.GITHUB_TOKEN}}
           token-uv: ${{secrets.GITHUB_TOKEN}}
   pytest:
@@ -47,6 +47,8 @@ jobs:
           - macos-latest
           - ubuntu-latest
         python-version:
+          - "3.12"
+          - "3.13"
           - "3.14"
         resolution:
           - highest
