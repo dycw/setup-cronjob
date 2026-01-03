@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/dycw/conformalize
-    rev: 0.10.10
+    rev: 0.12.0
     hooks:
       - args:
           - --description=Library to set up cron jobs
@@ -8,9 +8,9 @@ repos:
           - --envrc--uv
           - --github--pull-request--pre-commit
           - --github--pull-request--pyright
+          - --github--pull-request--pytest--all-versions
           - --github--pull-request--pytest--os--macos
           - --github--pull-request--pytest--os--ubuntu
-          - --github--pull-request--pytest--python-version--default
           - --github--pull-request--pytest--resolution--highest
           - --github--pull-request--ruff
           - --github--push--publish
@@ -25,6 +25,7 @@ repos:
           - --pyright
           - --pytest
           - --python-package-name=setup_cronjob
+          - --python-version=3.12
           - --readme
           - --repo-name=setup-cronjob
           - --ruff
